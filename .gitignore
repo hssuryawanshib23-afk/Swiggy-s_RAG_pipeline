@@ -21,3 +21,6 @@ assignment_reqs.txt
 
 # Large files - not needed (FAISS index already built)
 *.pdf
+
+# FAISS index is built inside Docker at build time - no need to commit binaries
+vectorstore/

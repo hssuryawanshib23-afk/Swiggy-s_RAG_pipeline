@@ -19,6 +19,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of your project files
 COPY . .
 
+# Build the FAISS vector index from the extracted JSON data
+# This runs ONCE at build time so the index is baked into the image
+RUN python embed_data.py data/full_pdf_extracted.json --output_dir vectorstore
+
 # Hugging Face Spaces REQUIRES port 7860
 EXPOSE 7860
 
