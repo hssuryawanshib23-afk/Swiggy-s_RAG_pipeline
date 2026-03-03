@@ -1,0 +1,18 @@
+# Environments
+venv/
+env/
+.env
+
+# __pycache__
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/
+
+# Temporary Files
+assignment_reqs.txt
