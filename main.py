@@ -108,20 +108,27 @@ def load_rag_pipeline():
         allow_dangerous_deserialization=True
     )
     
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
-    # 3. Initialize Groq LLM
+    # 3. Initialize Groq LLMs
+    #    - Small model for question rephrasing (saves tokens)
+    #    - Big model for answering (quality)
+    llm_rephrase = ChatGroq(
+        model_name="llama-3.1-8b-instant",
+        temperature=0.0,
+        max_tokens=256
+    )
     llm = ChatGroq(
         model_name="llama-3.3-70b-versatile",
         temperature=0.0,
-        max_tokens=2000
+        max_tokens=1024
     )
 
     # 3b. Initialize Gemini Fallback LLM
     gemini_llm = ChatGoogleGenerativeAI(
         model="gemini-2.0-flash-lite",
         temperature=0.0,
-        max_tokens=2000,
+        max_tokens=1024,
         api_key=os.getenv("GEMINI_API_KEY")
     )
 
@@ -141,7 +148,7 @@ def load_rag_pipeline():
         ]
     )
     history_aware_retriever = create_history_aware_retriever(
-        llm, retriever, contextualize_q_prompt
+        llm_rephrase, retriever, contextualize_q_prompt
     )
 
     # 5. Build QA Chain
