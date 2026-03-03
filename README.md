@@ -106,7 +106,8 @@ Because the project loads HuggingFace embedding models into RAM along with the F
 
 ## Credits 
 Thanks to swiggy to the data & also thanks to newel technologies for this opportunity:
-[https://drive.google.com/file/d/18vcLmzSoFJLsKXW34ohDBSWEHBvOazYO/view?usp=sharing](https://mail.google.com/mail/u/1?ui=2&ik=26e40c8269&attid=0.1&permmsgid=msg-f:1858557797450377803&th=19caec783f8fea4b&view=att&zw&disp=inline) (provided by newel technologies) 
+Data link:
+[[https://drive.google.com/file/d/18vcLmzSoFJLsKXW34ohDBSWEHBvOazYO/view?usp=sharing](https://mail.google.com/mail/u/1?ui=2&ik=26e40c8269&attid=0.1&permmsgid=msg-f:1858557797450377803&th=19caec783f8fea4b&view=att&zw&disp=inline)](https://mail.google.com/mail/u/1?ui=2&ik=26e40c8269&attid=0.1&permmsgid=msg-f:1858557797450377803&th=19caec783f8fea4b&view=att&zw&disp=inline) (provided by newel technologies) 
 Alternate link: https://drive.google.com/file/d/18vcLmzSoFJLsKXW34ohDBSWEHBvOazYO/view?usp=sharing
 About Swiggy: https://www.swiggy.com/corporate/
 
