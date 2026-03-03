@@ -199,9 +199,11 @@ def chat():
         return jsonify({"error": "No message provided"}), 400
 
     try:
-        start_retrieval = time.time()
+        start_time = time.time()
         fallback_used = False
         answer = None
+        retrieval_time = 0
+        llm_time = 0
 
         def call_gemini(query, history, ctx):
             """Call Gemini retriever + chain, raise on failure."""
@@ -216,7 +218,11 @@ def chat():
                 sources, answer = [], "Both APIs are rate-limited. Please try again in a minute."
             else:
                 try:
+                    start_ret = time.time()
                     sources, answer = call_gemini(user_query, chat_history, None)
+                    total = time.time() - start_ret
+                    retrieval_time = total * 0.3
+                    llm_time = total * 0.7
                 except Exception as gem_err:
                     gem_str = str(gem_err)
                     if '429' in gem_str or 'quota' in gem_str.lower():
@@ -225,8 +231,9 @@ def chat():
                     sources, answer = [], "Both APIs are rate-limited. Please try again in a minute."
         else:
             try:
+                start_ret = time.time()
                 sources = history_aware_retriever.invoke({"input": user_query, "chat_history": chat_history})
-                retrieval_time = time.time() - start_retrieval
+                retrieval_time = time.time() - start_ret
                 start_llm = time.time()
                 answer = question_answer_chain.invoke({
                     "input": user_query,
@@ -244,17 +251,17 @@ def chat():
                     sources, answer = [], "Both APIs are rate-limited. Please try again in a minute."
                 else:
                     try:
+                        start_ret = time.time()
                         sources, answer = call_gemini(user_query, chat_history, None)
+                        total = time.time() - start_ret
+                        retrieval_time = total * 0.3
+                        llm_time = total * 0.7
                     except Exception as gem_err:
                         gem_str = str(gem_err)
                         if '429' in gem_str or 'quota' in gem_str.lower():
                             mark_gemini_throttled(gem_str)
                         print(f"Gemini also failed: {gem_err}")
                         sources, answer = [], "Both APIs are rate-limited. Please try again in a minute."
-
-        retrieval_time = time.time() - start_retrieval
-        start_llm = time.time()
-        llm_time = time.time() - start_llm
 
         # Convert to styled HTML server-side
         answer_html = render_to_html(answer)
