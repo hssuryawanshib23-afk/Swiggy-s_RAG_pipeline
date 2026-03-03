@@ -102,3 +102,14 @@ Because the project loads HuggingFace embedding models into RAM along with the F
    - `GROQ_API_KEY` = `your_actual_key`
    - `GEMINI_API_KEY` = `your_actual_key`
 8. Click **Deploy Web Service**! Once complete, you will get a permanent public URL.
+
+
+## Credits 
+Thanks to swiggy to the data & also thanks to newel technologies for this opportunity:
+https://drive.google.com/file/d/18vcLmzSoFJLsKXW34ohDBSWEHBvOazYO/view?usp=sharing
+About Swiggy: https://www.swiggy.com/corporate/
+
+
+
+
+
