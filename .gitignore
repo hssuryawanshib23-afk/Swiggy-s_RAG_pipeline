@@ -7,9 +7,11 @@ env/
 __pycache__/
 *.pyc
 
-# IDEs
+# IDEs / Agents
 .vscode/
 .idea/
+.claude/
+.planning/
 
 # Streamlit
 .streamlit/
