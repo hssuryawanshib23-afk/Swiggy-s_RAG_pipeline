@@ -266,23 +266,18 @@ def chat():
         # Convert to styled HTML server-side
         answer_html = render_to_html(answer)
         
-        # Format Sources
+        # Format Sources — always show retrieved pages (even if LLM hedges)
         sources_list = []
         print(f"[DEBUG-SOURCES] type(sources)={type(sources).__name__}, len={len(sources) if isinstance(sources, list) else 'N/A'}")
         if isinstance(sources, list) and len(sources) > 0:
             print(f"[DEBUG-SOURCES] First doc type={type(sources[0]).__name__}, metadata={getattr(sources[0], 'metadata', 'NO_METADATA')}")
-        print(f"[DEBUG-SOURCES] 'I cannot find the answer' in answer_html = {'I cannot find the answer' in answer_html}")
-        print(f"[DEBUG-SOURCES] answer_html[:300] = {answer_html[:300]}")
-        if "I cannot find the answer" in answer_html:
-            pass # No sources if no answer
-        else:
-            unique_pages = set()
-            for doc in sources:
-                page = doc.metadata.get("page", "Unknown")
-                doc_type = doc.metadata.get("type", "Unknown")
-                if page not in unique_pages:
-                    sources_list.append({"page": page, "type": doc_type})
-                    unique_pages.add(page)
+        unique_pages = set()
+        for doc in sources:
+            page = doc.metadata.get("page", "Unknown")
+            doc_type = doc.metadata.get("type", "Unknown")
+            if page not in unique_pages:
+                sources_list.append({"page": page, "type": doc_type})
+                unique_pages.add(page)
         print(f"[DEBUG-SOURCES] Final sources_list = {sources_list}")
             
         # Update chat history (store plain answer text, not HTML)
