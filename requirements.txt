@@ -10,3 +10,4 @@ sentence-transformers
 groq
 python-dotenv
 langchain-google-genai==1.0.10
+markdown
