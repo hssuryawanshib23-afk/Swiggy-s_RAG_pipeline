@@ -15,6 +15,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
 app = Flask(__name__)
 CORS(app)
@@ -183,5 +184,5 @@ def clear_chat():
     chat_history = []
     return jsonify({"status": "success"})
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=7860)
